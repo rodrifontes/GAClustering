@@ -19,8 +19,13 @@ public class Data {
 		this.attributes = attributes;
 	}
 
+	//Euclidian Distance
 	public double getDistance(Data destiny) {
-		return 0;
+		Double distancia = 0d;
+		for (int i = 0; i < attributes.size(); i++) {
+		    distancia += Math.pow((double)getAttributes().get(i) - (double)destiny.getAttributes().get(i), 2);
+		}
+		return Math.sqrt(distancia);
 	}
 	
 	@Override
