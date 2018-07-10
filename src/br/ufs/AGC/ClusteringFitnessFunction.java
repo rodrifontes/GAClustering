@@ -9,6 +9,13 @@ public class ClusteringFitnessFunction extends FitnessFunction {
 	protected double evaluate(IChromosome a_subject) {
 		return 0;
 	}
+	
+	private void generateClusters(IChromosome a_potentialSolution) {
+		for(int i = 0; i < a_potentialSolution.size(); i++){
+			
+		}
+	}
+	
 
 	
 }
