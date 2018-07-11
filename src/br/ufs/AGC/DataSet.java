@@ -10,14 +10,15 @@ import java.util.regex.Pattern;
 public class DataSet {
 
 	private static List<Data> dataSet;
+	public static int k = 3;
 
-	public List<Data> getDataSet() throws IOException {
+	public static List<Data> getDataSet() throws IOException {
 		if(dataSet == null)
 			dataSet = dataSetReader();	
 		return dataSet;
 	}
 
-	private List<Data> dataSetReader() throws IOException {
+	private static List<Data> dataSetReader() throws IOException {
 		BufferedReader br = new BufferedReader(new FileReader("iris.data"));
 		String row = br.readLine();
 		List<Data> dataSet = new ArrayList<Data>();

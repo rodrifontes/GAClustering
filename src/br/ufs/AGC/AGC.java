@@ -16,16 +16,16 @@ public class AGC {
 		return new DefaultConfiguration();
 	}
 	
-	public IChromosome clustering(GeneticParameters geneticParameters, int k) throws InvalidConfigurationException {
+	public IChromosome clustering(GeneticParameters geneticParameters) throws InvalidConfigurationException {
 		
 		Configuration conf = createConfiguration();
 		
 		FitnessFunction fitnessFunction = new ClusteringFitnessFunction();
 		conf.setFitnessFunction(fitnessFunction);
 		
-		Gene[] sampleGenes = new Gene[k];
+		Gene[] sampleGenes = new Gene[DataSet.k];
 		for (int i = 0; i < sampleGenes.length; i++) {
-			sampleGenes[0] = new IntegerGene(conf, 1, k);
+			sampleGenes[0] = new IntegerGene(conf, 0, DataSet.k-1);
 		}
 		
 		Chromosome sampleChromosome = new Chromosome(conf, sampleGenes);
