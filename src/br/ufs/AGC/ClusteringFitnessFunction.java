@@ -11,6 +11,13 @@ public class ClusteringFitnessFunction extends FitnessFunction {
 
 	@Override
 	protected double evaluate(IChromosome a_subject) {
+		double fitness = 0;
+		try {
+			List<Cluster> clusters = generateClusters(a_subject);
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		return 0;
 	}
 	
