@@ -3,11 +3,11 @@ package br.ufs.AGC;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Data {
+public class DataPoint {
 	
 	private List<Object> attributes;
 	
-	public Data() {
+	public DataPoint() {
 		attributes = new ArrayList<>();
 	}
 
@@ -20,7 +20,7 @@ public class Data {
 	}
 
 	//Euclidian Distance
-	public double getDistance(Data destiny) {
+	public double getDistance(DataPoint destiny) {
 		Double distancia = 0d;
 		for (int i = 0; i < attributes.size(); i++) {
 		    distancia += Math.pow((double)getAttributes().get(i) - (double)destiny.getAttributes().get(i), 2);

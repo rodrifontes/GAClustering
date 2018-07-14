@@ -9,21 +9,21 @@ import java.util.regex.Pattern;
 
 public class DataSet {
 
-	private static List<Data> dataSet;
+	private static List<DataPoint> dataSet;
 	public static int k = 3;
 
-	public static List<Data> getDataSet() throws IOException {
+	public static List<DataPoint> getDataSet() throws IOException {
 		if(dataSet == null)
 			dataSet = dataSetReader();	
 		return dataSet;
 	}
 
-	private static List<Data> dataSetReader() throws IOException {
+	private static List<DataPoint> dataSetReader() throws IOException {
 		BufferedReader br = new BufferedReader(new FileReader("iris.data"));
 		String row = br.readLine();
-		List<Data> dataSet = new ArrayList<Data>();
+		List<DataPoint> dataSet = new ArrayList<DataPoint>();
 		while (row != null) {
-			Data data = new Data();
+			DataPoint data = new DataPoint();
 			String[] dataSplit = row.split(",");
 			for (int i = 0; i < dataSplit.length; i++) {
 				if(Pattern.matches("^\\d+$", dataSplit[i]) || Pattern.matches("^([+-]?\\d*\\.+\\d*)$", dataSplit[i]))

@@ -30,7 +30,7 @@ public class ClusteringFitnessFunction extends FitnessFunction {
 		}
 		
 		for(int i = 0; i < a_potentialSolution.size(); i++){
-			Data data = DataSet.getDataSet().get(i);
+			DataPoint data = DataSet.getDataSet().get(i);
 			clusters.get((Integer) a_potentialSolution.getGene(i).getAllele()).getData().add(data);
 		}
 		
