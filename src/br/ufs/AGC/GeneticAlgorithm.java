@@ -1,7 +1,5 @@
 package br.ufs.AGC;
 
-import java.util.List;
-
 import org.jgap.Chromosome;
 import org.jgap.Configuration;
 import org.jgap.FitnessFunction;
