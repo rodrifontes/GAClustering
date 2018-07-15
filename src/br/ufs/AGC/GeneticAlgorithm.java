@@ -30,7 +30,7 @@ public class GeneticAlgorithm {
 		FitnessFunction fitnessFunction = new ClusteringFitnessFunction();
 		conf.setFitnessFunction(fitnessFunction);
 		
-		 conf.setSampleChromosome(createSampleCromossome());
+		conf.setSampleChromosome(createSampleCromossome());
 
         // Determino o tamanho da minha população
         conf.setPopulationSize(geneticParameters.getPopulationSize());
@@ -56,7 +56,7 @@ public class GeneticAlgorithm {
 		Gene[] sampleGenes = new Gene[lengthChromosome];
 		int d = 0;
 		for (int i = 0; i < sampleGenes.length; i++) {
-			sampleGenes[0] = new DoubleGene(conf, Clustering.minValueDimensions[i], Clustering.maxValueDimensions[i]);
+			sampleGenes[i] = new DoubleGene(conf, Clustering.minValueDimensions[d], Clustering.maxValueDimensions[d]);
 			if(d == Clustering.numDimensions - 1){
 				d = 0;
 			} else {
