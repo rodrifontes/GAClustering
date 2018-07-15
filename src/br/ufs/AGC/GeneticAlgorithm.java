@@ -10,7 +10,7 @@ import org.jgap.InvalidConfigurationException;
 import org.jgap.impl.DefaultConfiguration;
 import org.jgap.impl.IntegerGene;
 
-public class AGC {
+public class GeneticAlgorithm {
 
 	public Configuration createConfiguration() {
 		return new DefaultConfiguration();
@@ -23,9 +23,9 @@ public class AGC {
 		FitnessFunction fitnessFunction = new ClusteringFitnessFunction();
 		conf.setFitnessFunction(fitnessFunction);
 		
-		Gene[] sampleGenes = new Gene[DataSet.k];
+		Gene[] sampleGenes = new Gene[Clustering.numClusters];
 		for (int i = 0; i < sampleGenes.length; i++) {
-			sampleGenes[0] = new IntegerGene(conf, 0, DataSet.k-1);
+			sampleGenes[0] = new IntegerGene(conf, 0, Clustering.numClusters-1);
 		}
 		
 		Chromosome sampleChromosome = new Chromosome(conf, sampleGenes);

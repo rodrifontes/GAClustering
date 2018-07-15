@@ -7,11 +7,23 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
 
-public class DataSet {
+import javax.swing.JOptionPane;
+
+public class Clustering {
 
 	private static List<DataPoint> dataSet;
-	public static int k = 3;
+	public static int numClusters = 3;
+	public static int numDimensions;
+	private static String pathDataSet;
+	
+	public static void main(String[] args) throws IOException {
+		
+		pathDataSet = JOptionPane.showInputDialog("Informe o Caminho do DataSet");
+		numClusters = Integer.parseInt(JOptionPane.showInputDialog("Informe o número de clusters"));
+		dataSet = getDataSet();
 
+	}
+	
 	public static List<DataPoint> getDataSet() throws IOException {
 		if(dataSet == null)
 			dataSet = dataSetReader();	
@@ -19,12 +31,13 @@ public class DataSet {
 	}
 
 	private static List<DataPoint> dataSetReader() throws IOException {
-		BufferedReader br = new BufferedReader(new FileReader("iris.data"));
+		BufferedReader br = new BufferedReader(new FileReader(pathDataSet));
 		String row = br.readLine();
 		List<DataPoint> dataSet = new ArrayList<DataPoint>();
 		while (row != null) {
 			DataPoint data = new DataPoint();
 			String[] dataSplit = row.split(",");
+			numDimensions = dataSplit.length;
 			for (int i = 0; i < dataSplit.length; i++) {
 				if(Pattern.matches("^\\d+$", dataSplit[i]) || Pattern.matches("^([+-]?\\d*\\.+\\d*)$", dataSplit[i]))
 					data.getAttributes().add(new Double(dataSplit[i]));
@@ -37,5 +50,5 @@ public class DataSet {
 		br.close();
 		return dataSet;
 	}
-	
+
 }
