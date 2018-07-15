@@ -1,5 +1,7 @@
 package br.ufs.AGC;
 
+import java.util.List;
+
 import org.jgap.Chromosome;
 import org.jgap.Configuration;
 import org.jgap.FitnessFunction;
@@ -8,29 +10,27 @@ import org.jgap.Genotype;
 import org.jgap.IChromosome;
 import org.jgap.InvalidConfigurationException;
 import org.jgap.impl.DefaultConfiguration;
-import org.jgap.impl.IntegerGene;
+import org.jgap.impl.DoubleGene;
 
 public class GeneticAlgorithm {
 
-	public Configuration createConfiguration() {
-		return new DefaultConfiguration();
+	private Configuration conf;
+    private GeneticParameters geneticParameters;
+	
+	private Configuration createConfiguration() {
+		return  new DefaultConfiguration();
 	}
 	
-	public IChromosome clustering(GeneticParameters geneticParameters) throws InvalidConfigurationException {
+	public IChromosome clustering(GeneticParameters geneticParameters, List<DataPoint> dataSet) throws InvalidConfigurationException {
 		
-		Configuration conf = createConfiguration();
+		this.geneticParameters = geneticParameters; 
+		
+		conf = createConfiguration();
 		
 		FitnessFunction fitnessFunction = new ClusteringFitnessFunction();
 		conf.setFitnessFunction(fitnessFunction);
 		
-		Gene[] sampleGenes = new Gene[Clustering.numClusters];
-		for (int i = 0; i < sampleGenes.length; i++) {
-			sampleGenes[0] = new IntegerGene(conf, 0, Clustering.numClusters-1);
-		}
-		
-		Chromosome sampleChromosome = new Chromosome(conf, sampleGenes);
-		
-        conf.setSampleChromosome(sampleChromosome);
+		 conf.setSampleChromosome(createSampleCromossome());
 
         // Determino o tamanho da minha população
         conf.setPopulationSize(geneticParameters.getPopulationSize());
@@ -47,6 +47,24 @@ public class GeneticAlgorithm {
         }
         	
 		return bestSolutionSoFar;
+		
+	}
+	
+	private IChromosome createSampleCromossome() throws InvalidConfigurationException {
+		
+		int lengthChromosome = Clustering.numClusters*Clustering.numDimensions;
+		Gene[] sampleGenes = new Gene[lengthChromosome];
+		int d = 0;
+		for (int i = 0; i < sampleGenes.length; i++) {
+			sampleGenes[0] = new DoubleGene(conf, Clustering.minValueDimensions[i], Clustering.maxValueDimensions[i]);
+			if(d == Clustering.numDimensions - 1){
+				d = 0;
+			} else {
+				d++;
+			}
+		}
+		
+		return new Chromosome(conf, sampleGenes);
 		
 	}
 	
