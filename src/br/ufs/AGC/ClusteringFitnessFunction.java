@@ -23,21 +23,45 @@ public class ClusteringFitnessFunction extends FitnessFunction {
 	
 	private List<Cluster> generateClusters(IChromosome a_potentialSolution) throws IOException {
 		
-		List<Cluster> clusters = new ArrayList<>();
+		List<Cluster> clusters = separatedCentroides(a_potentialSolution);
 		
-		for (int i = 0; i < Clustering.numClusters-1; i++) {
-			clusters.add(new Cluster());
-		}
-		
-		for(int i = 0; i < a_potentialSolution.size(); i++){
-			DataPoint data = Clustering.getDataSet().get(i);
-			clusters.get((Integer) a_potentialSolution.getGene(i).getAllele()).getData().add(data);
+		List<DataPoint> dataSet =  Clustering.getDataSet();
+		for (DataPoint dataPoint : dataSet) {
+			Double menorDistancia = 0d;
+			int indexClusterMenorDistancia = 0;
+			for (int i = 0; i < clusters.size(); i++) {
+				Double distanceCentroid = dataPoint.getDistance(clusters.get(i).getCentroid()); 
+				if(i == 0 || distanceCentroid < menorDistancia) {
+					indexClusterMenorDistancia = i;
+					menorDistancia = distanceCentroid;
+				}
+			}
+			clusters.get(indexClusterMenorDistancia).getDataPoints().add(dataPoint);
 		}
 		
 		return clusters;
 		
 	}
 	
-
+	private List<Cluster> separatedCentroides(IChromosome a_potentialSolution) {
+		
+		List<Cluster> clusters = new ArrayList<>();
+		
+		int d = 0;
+		DataPoint centroid = new DataPoint();
+		for (int i = 0; i < a_potentialSolution.size(); i++) {
+			centroid.getAttributes().add(a_potentialSolution.getGene(i));
+			if(d == Clustering.numDimensions - 1){
+				clusters.add(new Cluster(centroid));
+				centroid = new DataPoint();
+				d = 0;
+			} else {
+				d++;
+			}
+		}
+		
+		return clusters;
+		
+	}
 	
 }

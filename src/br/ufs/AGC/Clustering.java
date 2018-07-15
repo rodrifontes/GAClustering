@@ -31,7 +31,7 @@ public class Clustering {
 	    int mutationRate = Integer.parseInt(JOptionPane.showInputDialog("Informe a Taxa de Mutação"));
 	    GeneticParameters geneticParameters = new GeneticParameters(populationSize, numberOfEvolutions, crossoverRate, mutationRate);
 	    GeneticAlgorithm geneticAlgorithm = new GeneticAlgorithm();
-	    geneticAlgorithm.clustering(geneticParameters, dataSet);
+	    geneticAlgorithm.clustering(geneticParameters);
 
 	}
 	

@@ -21,7 +21,7 @@ public class GeneticAlgorithm {
 		return  new DefaultConfiguration();
 	}
 	
-	public IChromosome clustering(GeneticParameters geneticParameters, List<DataPoint> dataSet) throws InvalidConfigurationException {
+	public IChromosome clustering(GeneticParameters geneticParameters) throws InvalidConfigurationException {
 		
 		this.geneticParameters = geneticParameters; 
 		
