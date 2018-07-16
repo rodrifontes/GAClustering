@@ -9,6 +9,7 @@ import java.util.regex.Pattern;
 
 import javax.swing.JOptionPane;
 
+import org.jgap.IChromosome;
 import org.jgap.InvalidConfigurationException;
 
 public class Clustering {
@@ -22,16 +23,22 @@ public class Clustering {
 	
 	public static void main(String[] args) throws IOException, InvalidConfigurationException {
 		
-		pathDataSet = JOptionPane.showInputDialog("Informe o Caminho do DataSet");
-		numClusters = Integer.parseInt(JOptionPane.showInputDialog("Informe o número de clusters"));
+		pathDataSet = "iris.data";//JOptionPane.showInputDialog("Informe o Caminho do DataSet");
+		numClusters = 3;//Integer.parseInt(JOptionPane.showInputDialog("Informe o número de clusters"));
 		dataSet = getDataSet();
-		int populationSize = Integer.parseInt(JOptionPane.showInputDialog("Informe o Tamanho da População"));
-	    int numberOfEvolutions = Integer.parseInt(JOptionPane.showInputDialog("Informe o Número de Gerações"));
-	    double crossoverRate = Integer.parseInt(JOptionPane.showInputDialog("Informe a Taxa de Cruzamento"));
-	    int mutationRate = Integer.parseInt(JOptionPane.showInputDialog("Informe a Taxa de Mutação"));
+		int populationSize = 1000;//Integer.parseInt(JOptionPane.showInputDialog("Informe o Tamanho da População"));
+	    int numberOfEvolutions = 100;//Integer.parseInt(JOptionPane.showInputDialog("Informe o Número de Gerações"));
+	    double crossoverRate = 0.9;//Integer.parseInt(JOptionPane.showInputDialog("Informe a Taxa de Cruzamento"));
+	    int mutationRate = 1;//Integer.parseInt(JOptionPane.showInputDialog("Informe a Taxa de Mutação"));
+	    
 	    GeneticParameters geneticParameters = new GeneticParameters(populationSize, numberOfEvolutions, crossoverRate, mutationRate);
 	    GeneticAlgorithm geneticAlgorithm = new GeneticAlgorithm();
-	    geneticAlgorithm.clustering(geneticParameters);
+	    IChromosome bestSolution = geneticAlgorithm.clustering(geneticParameters);
+	    
+	    List<Cluster> clusters = Cluster.generateClusters(bestSolution);
+	    for (Cluster cluster : clusters) {
+			System.out.println(cluster);
+		}
 
 	}
 	

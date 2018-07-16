@@ -23,7 +23,7 @@ public class DataPoint {
 	public double getDistance(DataPoint destiny) {
 		Double distancia = 0d;
 		for (int i = 0; i < attributes.size(); i++) {
-		    distancia += Math.pow((double)getAttributes().get(i) - (double)destiny.getAttributes().get(i), 2);
+		    distancia += Math.pow((Double) getAttributes().get(i) - (Double) destiny.getAttributes().get(i), 2);
 		}
 		return Math.sqrt(distancia);
 	}

@@ -39,11 +39,12 @@ public class GeneticAlgorithm {
         IChromosome bestSolutionSoFar = null;
         
         for (int i = 0; i < geneticParameters.getNumberOfEvolutions(); i++) {
-			// Inicio a evolução da população, uma geração
-            population.evolve();
+			System.out.println("Geração " + (i+1) + "..." );
+        	population.evolve();
             bestSolutionSoFar = population.getFittestChromosome();
+         
         }
-        	
+        
 		return bestSolutionSoFar;
 		
 	}
