@@ -25,7 +25,7 @@ public class GeneticAlgorithm {
 		
 		conf = createConfiguration();
 		
-		FitnessFunction fitnessFunction = new ClusteringFitnessFunction();
+		FitnessFunction fitnessFunction = new ClustersFitnessFunction();
 		conf.setFitnessFunction(fitnessFunction);
 		
 		conf.setSampleChromosome(createSampleCromossome());

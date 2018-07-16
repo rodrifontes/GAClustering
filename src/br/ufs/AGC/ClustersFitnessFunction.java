@@ -7,7 +7,7 @@ import java.util.List;
 import org.jgap.FitnessFunction;
 import org.jgap.IChromosome;
 
-public class ClusteringFitnessFunction extends FitnessFunction {
+public class ClustersFitnessFunction extends FitnessFunction {
 
 	@Override
 	protected double evaluate(IChromosome a_subject) {
