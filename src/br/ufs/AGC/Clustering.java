@@ -27,7 +27,7 @@ public class Clustering {
 		numClusters = 3;//Integer.parseInt(JOptionPane.showInputDialog("Informe o número de clusters"));
 		dataSet = getDataSet();
 		int populationSize = 1000;//Integer.parseInt(JOptionPane.showInputDialog("Informe o Tamanho da População"));
-	    int numberOfEvolutions = 100;//Integer.parseInt(JOptionPane.showInputDialog("Informe o Número de Gerações"));
+	    int numberOfEvolutions = 1000;//Integer.parseInt(JOptionPane.showInputDialog("Informe o Número de Gerações"));
 	    double crossoverRate = 0.9;//Integer.parseInt(JOptionPane.showInputDialog("Informe a Taxa de Cruzamento"));
 	    int mutationRate = 1;//Integer.parseInt(JOptionPane.showInputDialog("Informe a Taxa de Mutação"));
 	    
