@@ -15,6 +15,11 @@ public class ClustersFitnessFunction extends FitnessFunction {
 		try {
 			List<Cluster> clusters = Cluster.generateClusters(a_subject);
 			
+			for (Cluster cluster : clusters) {
+				if(cluster.getDataPoints().size() == 0)
+					return Double.MAX_VALUE;
+			}
+			
 			Double sumDistance = 0d;
 			for (Cluster cluster : clusters) {
 				

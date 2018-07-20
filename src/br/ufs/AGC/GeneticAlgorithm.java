@@ -2,21 +2,43 @@ package br.ufs.AGC;
 
 import org.jgap.Chromosome;
 import org.jgap.Configuration;
+import org.jgap.DefaultFitnessEvaluator;
 import org.jgap.FitnessFunction;
 import org.jgap.Gene;
 import org.jgap.Genotype;
 import org.jgap.IChromosome;
 import org.jgap.InvalidConfigurationException;
+import org.jgap.event.EventManager;
+import org.jgap.impl.BestChromosomesSelector;
+import org.jgap.impl.CrossoverOperator;
 import org.jgap.impl.DefaultConfiguration;
 import org.jgap.impl.DoubleGene;
+import org.jgap.impl.GABreeder;
+import org.jgap.impl.StockRandomGenerator;
+import org.jgap.impl.SwappingMutationOperator;
+import org.jgap.impl.WeightedRouletteSelector;
 
 public class GeneticAlgorithm {
 
 	private Configuration conf;
     private GeneticParameters geneticParameters;
 	
-	private Configuration createConfiguration() {
-		return  new DefaultConfiguration();
+	private Configuration createConfiguration() throws InvalidConfigurationException {
+		
+		Configuration conf = new Configuration();
+		
+		//conf.setMinimumPopSizePercent(0);
+		
+		// Define os operadores do algoritmo.
+        conf.setBreeder(new GABreeder());
+		conf.addNaturalSelector(new BestChromosomesSelector(conf), false);
+		conf.addGeneticOperator(new CrossoverOperator(conf, 0.35d));
+        conf.addGeneticOperator(new SwappingMutationOperator(conf, 5));
+        conf.setRandomGenerator(new StockRandomGenerator());
+        conf.setEventManager(new EventManager());
+        
+        return conf;
+	
 	}
 	
 	public IChromosome clustering(GeneticParameters geneticParameters) throws InvalidConfigurationException {
@@ -27,6 +49,7 @@ public class GeneticAlgorithm {
 		
 		FitnessFunction fitnessFunction = new ClustersFitnessFunction();
 		conf.setFitnessFunction(fitnessFunction);
+		conf.setFitnessEvaluator(new ClustersFitnessEvaluator());
 		
 		conf.setSampleChromosome(createSampleCromossome());
 
@@ -42,6 +65,7 @@ public class GeneticAlgorithm {
 			System.out.println("Geração " + (i+1) + "..." );
         	population.evolve();
             bestSolutionSoFar = population.getFittestChromosome();
+            System.out.println(fitnessFunction.getFitnessValue(bestSolutionSoFar));
          
         }
         
