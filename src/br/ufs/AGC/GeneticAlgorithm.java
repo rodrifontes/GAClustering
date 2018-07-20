@@ -32,8 +32,8 @@ public class GeneticAlgorithm {
 		// Define os operadores do algoritmo.
         conf.setBreeder(new GABreeder());
 		conf.addNaturalSelector(new BestChromosomesSelector(conf), false);
-		conf.addGeneticOperator(new CrossoverOperator(conf, 0.35d));
-        conf.addGeneticOperator(new SwappingMutationOperator(conf, 5));
+		conf.addGeneticOperator(new CrossoverOperator(conf, geneticParameters.getCrossoverRate()));
+        conf.addGeneticOperator(new SwappingMutationOperator(conf, geneticParameters.getMutationRate()));
         conf.setRandomGenerator(new StockRandomGenerator());
         conf.setEventManager(new EventManager());
         

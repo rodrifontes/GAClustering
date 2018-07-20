@@ -83,6 +83,7 @@ public class Cluster {
 	@Override
 	public String toString() {
 		String result = "Centroid: " + getCentroid() + "\n";
+		result += "Tamanho do Cluster: " + dataPoints.size() + "\n";
 		for (DataPoint dataPoint : dataPoints) {
 			result += dataPoint + "\n";
 		}
