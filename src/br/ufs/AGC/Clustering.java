@@ -14,6 +14,7 @@ import org.jgap.InvalidConfigurationException;
 
 public class Clustering {
 
+	public static double fit;
 	private static List<DataPoint> dataSet;
 	public static int numClusters = 3;
 	public static int numDimensions;
@@ -27,19 +28,39 @@ public class Clustering {
 		numClusters = 3;//Integer.parseInt(JOptionPane.showInputDialog("Informe o número de clusters"));
 		dataSet = getDataSet();
 		int populationSize = 2000;//Integer.parseInt(JOptionPane.showInputDialog("Informe o Tamanho da População"));
-	    int numberOfEvolutions = 200;//Integer.parseInt(JOptionPane.showInputDialog("Informe o Número de Gerações"));
+	    int numberOfEvolutions = 100;//Integer.parseInt(JOptionPane.showInputDialog("Informe o Número de Gerações"));
 	    double crossoverRate = 0.7;//Integer.parseInt(JOptionPane.showInputDialog("Informe a Taxa de Cruzamento"));
 	    int mutationRate = 1;//Integer.parseInt(JOptionPane.showInputDialog("Informe a Taxa de Mutação"));
-	    
-	    GeneticParameters geneticParameters = new GeneticParameters(populationSize, numberOfEvolutions, crossoverRate, mutationRate);
-	    GeneticAlgorithm geneticAlgorithm = new GeneticAlgorithm();
-	    IChromosome bestSolution = geneticAlgorithm.clustering(geneticParameters);
-	    
-	    List<Cluster> clusters = Cluster.generateClusters(bestSolution);
-	    for (Cluster cluster : clusters) {
-			System.out.println(cluster);
+		
+	    System.out.println(pathDataSet);
+	    for(int i = 1; i<numClusters+1; i++)
+	    	System.out.print("C"+i+";");
+	    System.out.print("Tempo;");
+	    System.out.println("Fitness");
+		for(int i = 0; i<30;i++){
+			long startTime = System.currentTimeMillis();
+		    GeneticParameters geneticParameters = new GeneticParameters(populationSize, numberOfEvolutions, crossoverRate, mutationRate);
+		    GeneticAlgorithm geneticAlgorithm = new GeneticAlgorithm();
+		    IChromosome bestSolution = geneticAlgorithm.clustering(geneticParameters);
+		    
+		    List<Cluster> clusters = Cluster.generateClusters(bestSolution);
+		    long stopTime = System.currentTimeMillis();
+		    long elapsedTime = stopTime - startTime;
+		    
+		    //taxaErro(clusters);
+		    toCSV(clusters, elapsedTime*0.001, fit);
+		    System.out.println();
+		    
 		}
 
+	}
+	
+	public static void taxaErro(List<Cluster> clusters) throws IOException {
+		pathDataSet = "iris2.data";
+		List<DataPoint> dataOriginal = dataSetReader();
+		for(Cluster c:clusters){
+			System.out.print(c+";");
+		}
 	}
 	
 	public static List<DataPoint> getDataSet() throws IOException {
@@ -94,6 +115,14 @@ public class Clustering {
 		minValueDimensions = min;
 		maxValueDimensions = max;
 		
+	}
+	
+	private static void toCSV(List<Cluster> centros, double tempo, double fitness){
+		for(Cluster c:centros){
+			System.out.print(c.getDataPoints().size()+";");
+		}
+		System.out.printf("%.2f;", tempo);
+		System.out.print(fitness);
 	}
 
 }

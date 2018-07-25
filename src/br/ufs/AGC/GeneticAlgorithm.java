@@ -62,13 +62,14 @@ public class GeneticAlgorithm {
         IChromosome bestSolutionSoFar = null;
         
         for (int i = 0; i < geneticParameters.getNumberOfEvolutions(); i++) {
-			System.out.println("Geração " + (i+1) + "..." );
+			//System.out.println("Geração " + (i+1) + "..." );
         	population.evolve();
             bestSolutionSoFar = population.getFittestChromosome();
-            System.out.println(fitnessFunction.getFitnessValue(bestSolutionSoFar));
-         
+            //System.out.println(fitnessFunction.getFitnessValue(bestSolutionSoFar));
         }
         
+        Clustering.fit = fitnessFunction.getFitnessValue(bestSolutionSoFar);
+        conf.reset();
 		return bestSolutionSoFar;
 		
 	}
